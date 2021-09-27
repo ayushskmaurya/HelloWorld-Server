@@ -11,7 +11,8 @@
 		$sql .= "INNER JOIN (SELECT chatid, max(dateTime) AS mDateTime FROM messages GROUP BY chatid) AS maxDateTime ";
 		$sql .= "ON chats.chatid = maxDateTime.chatid ";
 		$sql .= "INNER JOIN messages ";
-		$sql .= "ON maxDateTime.chatid = messages.chatid AND maxDateTime.mDateTime = messages.dateTime";
+		$sql .= "ON maxDateTime.chatid = messages.chatid AND maxDateTime.mDateTime = messages.dateTime ";
+		$sql .= "ORDER BY messages.dateTime DESC";
 
 		$stmt = $conn->prepare($sql);
 		$stmt->execute(array("user_id" => $user_id));
