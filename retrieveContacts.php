@@ -10,7 +10,8 @@
 		$sql = "SELECT users.userid, users.name, chats.chatid ";
 		$sql .= "FROM (SELECT userid, name FROM users WHERE mobile_no IN $phone_nos) AS users ";
 		$sql .= "LEFT OUTER JOIN chats ";
-		$sql .= "ON (users.userid=chats.user1id AND :user_id=chats.user2id) OR (users.userid=chats.user2id AND :user_id=chats.user1id)";
+		$sql .= "ON (users.userid=chats.user1id AND :user_id=chats.user2id) OR (users.userid=chats.user2id AND :user_id=chats.user1id) ";
+		$sql .= "ORDER BY users.name";
 		
 		$stmt = $conn->prepare($sql);
 		$stmt->execute(array("user_id" => $user_id));
