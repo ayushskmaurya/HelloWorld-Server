@@ -4,13 +4,16 @@
 
 		$user_id = $_POST['userid'];
 
-		$sql = "SELECT chats.chatid, users.name, messages.message, messages.dateTime ";
+		$sql = "SELECT chats.chatid, users.name, ";
+		$sql .= "COALESCE(messages.message, '') AS message, ";
+		$sql .= "COALESCE(messages.dateTime, '') AS dateTime, ";
+		$sql .= "IF(messages.senderid<>:user_id AND messages.isMsgSeen=false, 1, 0) AS isNewMsg ";
 		$sql .= "FROM chats ";
 		$sql .= "INNER JOIN users ";
 		$sql .= "ON (CASE WHEN chats.user1id=:user_id THEN chats.user2id WHEN chats.user2id=:user_id THEN chats.user1id END) = users.userid ";
-		$sql .= "INNER JOIN (SELECT chatid, max(dateTime) AS mDateTime FROM messages GROUP BY chatid) AS maxDateTime ";
+		$sql .= "LEFT JOIN (SELECT chatid, max(dateTime) AS mDateTime FROM messages GROUP BY chatid) AS maxDateTime ";
 		$sql .= "ON chats.chatid = maxDateTime.chatid ";
-		$sql .= "INNER JOIN messages ";
+		$sql .= "LEFT JOIN messages ";
 		$sql .= "ON maxDateTime.chatid = messages.chatid AND maxDateTime.mDateTime = messages.dateTime ";
 		$sql .= "ORDER BY messages.dateTime DESC";
 
