@@ -41,6 +41,7 @@ PHP and MySQL based Server for HelloWorld Messenger.
 		senderid INT NOT NULL,
 		message TEXT NOT NULL,
 		dateTime DATETIME(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+		isMsgSeen BOOLEAN DEFAULT false NOT NULL,
 		PRIMARY KEY(msgid),
 		FOREIGN KEY (chatid) REFERENCES chats(chatid),
 		FOREIGN KEY (senderid) REFERENCES users(userid)
