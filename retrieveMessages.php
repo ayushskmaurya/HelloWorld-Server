@@ -11,8 +11,11 @@
 		$stmt1 = $conn->prepare($sql1);
 		$stmt1->execute(array("chat_id" => $chat_id, "user_id" => $user_id));
 
-		$sql2 = "SELECT senderid, message, dateTime, isMsgSeen ";
+		$sql2 = "SELECT messages.msgid, senderid, message, dateTime, isMsgSeen, ";
+		$sql2 .= "COALESCE(filename, '') AS filename ";
 		$sql2 .= "FROM messages ";
+		$sql2 .= "LEFT JOIN attachments ";
+		$sql2 .= "ON messages.msgid=attachments.msgid ";
 		$sql2 .= "WHERE chatid=:chat_id ";
 		$sql2 .= "ORDER BY dateTime";
 

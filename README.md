@@ -39,11 +39,24 @@ PHP and MySQL based Server for HelloWorld Messenger.
 		msgid INT AUTO_INCREMENT,
 		chatid INT NOT NULL,
 		senderid INT NOT NULL,
-		message TEXT NOT NULL,
+		message TEXT,
 		dateTime DATETIME(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
 		isMsgSeen BOOLEAN DEFAULT false NOT NULL,
 		PRIMARY KEY(msgid),
 		FOREIGN KEY (chatid) REFERENCES chats(chatid),
 		FOREIGN KEY (senderid) REFERENCES users(userid)
+	);
+	```
+
+	```
+	-- Attachments Table
+	CREATE TABLE attachments (
+		attachmentid INT AUTO_INCREMENT,
+		msgid INT NOT NULL,
+		filename VARCHAR(100) NOT NULL,
+		temp_filename VARCHAR(100) NOT NULL,
+		isFileUploaded BOOLEAN DEFAULT false NOT NULL,
+		PRIMARY KEY(attachmentid),
+		FOREIGN KEY (msgid) REFERENCES messages(msgid)
 	);
 	```
