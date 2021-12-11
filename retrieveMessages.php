@@ -12,7 +12,8 @@
 		$stmt1->execute(array("chat_id" => $chat_id, "user_id" => $user_id));
 
 		$sql2 = "SELECT messages.msgid, senderid, message, dateTime, isMsgSeen, ";
-		$sql2 .= "COALESCE(filename, '') AS filename ";
+		$sql2 .= "COALESCE(filename, '') AS filename, ";
+		$sql2 .= "COALESCE(isFileUploaded, '') AS isFileUploaded ";
 		$sql2 .= "FROM messages ";
 		$sql2 .= "LEFT JOIN attachments ";
 		$sql2 .= "ON messages.msgid=attachments.msgid ";
