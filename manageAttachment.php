@@ -69,15 +69,20 @@
 		// Cancel uploading the file.
 		if($_POST['whatToDo'] === "cancelUpload") {
 			$msgid = $_POST['msgid'];
-			$temp_filename = $_POST['temp_filename'];
 
-			$sql1= "DELETE FROM attachments WHERE msgid=:msgid";
+			$sql1 = "SELECT temp_filename FROM attachments WHERE msgid=:msgid";
 			$stmt1 = $conn->prepare($sql1);
 			$stmt1->execute(array("msgid" => $msgid));
-			
-			$sql2= "DELETE FROM messages WHERE msgid=:msgid";
+			$row = $stmt1->fetch(PDO::FETCH_ASSOC);
+			$temp_filename = $row['temp_filename'];
+
+			$sql2= "DELETE FROM attachments WHERE msgid=:msgid";
 			$stmt2 = $conn->prepare($sql2);
 			$stmt2->execute(array("msgid" => $msgid));
+			
+			$sql3= "DELETE FROM messages WHERE msgid=:msgid";
+			$stmt3 = $conn->prepare($sql3);
+			$stmt3->execute(array("msgid" => $msgid));
 			
 			$filepath = "static/attachments/".$temp_filename;
 			if(file_exists($filepath))
@@ -85,5 +90,21 @@
 
 			echo strval("1");
 		}
+	}
+
+
+	// Download the file.
+	if($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['whatToDo'] === "downloadFile") {
+		include 'connection.php';
+
+		$msgid = $_GET['msgid'];
+		$sql = "SELECT temp_filename FROM attachments WHERE msgid=:msgid";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute(array("msgid" => $msgid));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$temp_filename = $row['temp_filename'];
+	
+		header("Location: ".BASE_URL."/static/attachments/".$temp_filename);
+		exit;
 	}
 ?>
