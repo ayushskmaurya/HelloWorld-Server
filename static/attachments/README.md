@@ -1,1 +1,1 @@
-Attachments are being stored in this folder.
+Attachments will be stored in this folder.

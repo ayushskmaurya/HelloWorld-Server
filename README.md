@@ -17,6 +17,7 @@ PHP and MySQL based Server for HelloWorld Messenger.
 		name VARCHAR(100) NOT NULL,
 		mobile_no VARCHAR(10) UNIQUE NOT NULL,
 		password VARCHAR(255) NOT NULL,
+		profile_image VARCHAR(100) UNIQUE,
 		PRIMARY KEY(userid)
 	);
 	```

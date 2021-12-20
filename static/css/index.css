@@ -1,4 +1,9 @@
 body {
+	margin: 0;
+}
+
+div.logo {
+	height: calc(100vh - 50px - 20px);
 	text-align: center;
 }
 
@@ -13,4 +18,20 @@ h1 {
 	color: #321e46;
 	font-size: 3rem;
 	font-family: 'Noto Sans JP', sans-serif;
+}
+
+div.footer {
+	height: 50px;
+	padding-left: 3px;
+	padding-right: 3px;
+	text-align: center;
+}
+
+a.footer {
+	text-decoration: none;
+	color: #000C;
+	font-family: 'Noto Sans JP', sans-serif;
+}
+a.footer:hover {
+	font-size: 1.03rem;
 }

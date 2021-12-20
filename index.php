@@ -11,7 +11,16 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap" rel="stylesheet">
 </head>
 <body>
-	<img src="static/images/logo.jpg" alt="HelloWorld Server">
-	<h1>HelloWorld Server</h1>
+	<div class="logo">
+		<img src="static/images/logo.jpg" alt="HelloWorld Server">
+		<h1>HelloWorld Server</h1>
+	</div>
+
+	<hr>
+	
+	<!-- Footer -->
+	<div class="footer">
+		<a href="https://github.com/ayushskmaurya" target="_blank" class="footer">Developed by: Ayushkumar Maurya</a>
+	</div>
 </body>
 </html>
