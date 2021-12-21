@@ -46,7 +46,7 @@
 			$temp_filename = $_POST['temp_filename'];
 			$encoded_file_str = $_POST['encoded_file_str'];
 			
-			$filepath = "static/attachments/".$temp_filename;
+			$filepath = ATTACHMENTS . "/" . $temp_filename;
 			file_put_contents($filepath, base64_decode($encoded_file_str));
 
 			$sql1= "SELECT msgid FROM attachments WHERE msgid=:msgid";
@@ -84,7 +84,7 @@
 			$stmt3 = $conn->prepare($sql3);
 			$stmt3->execute(array("msgid" => $msgid));
 			
-			$filepath = "static/attachments/".$temp_filename;
+			$filepath = ATTACHMENTS . "/" . $temp_filename;
 			if(file_exists($filepath))
 				unlink($filepath);
 
@@ -104,7 +104,7 @@
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$temp_filename = $row['temp_filename'];
 	
-		header("Location: ".BASE_URL."/static/attachments/".$temp_filename);
+		header("Location: ".BASE_URL."/".ATTACHMENTS."/".$temp_filename);
 		exit;
 	}
 ?>
